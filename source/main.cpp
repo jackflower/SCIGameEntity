@@ -31,5 +31,5 @@ int main()
 {
 	Game game;
 	game.run();
-	return 0;
+	return 0;//przygotować nowy nagłówek
 }
