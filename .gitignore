@@ -10,6 +10,13 @@
 *.userosscache
 *.sln.docstates
 
+# Acodemia SCI - Jack Flower
+# 2021-06-09
+*.vcproj
+*.vcxproj
+*.filters
+*.sln
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
