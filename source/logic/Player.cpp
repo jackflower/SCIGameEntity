@@ -1,0 +1,201 @@
+﻿////////////////////////////////////////////////////////////
+//
+// Acodemia Copyright (C) Jacek Kwiatek 2021
+// e-mail: jackflower (at) poczta.onet.pl
+// acodemia.pl
+//
+// To oprogramowanie dostarczane jest w postaci takiej,
+// w jakiej jest, bez wyraźnych ani domniemanych gwarancji.
+//
+// W żadnym wypadku Autor nie ponosi odpowiedzialności
+// za jakiekolwiek szkody powstałe w wyniku korzystania
+// z tego oprogramowania.
+//
+// Zezwala się na korzystanie z tego oprogramowania
+// w dowolnym celu, także komercyjnym. Można je zmienić
+// i swobodnie rozpowszechniać.
+//
+// Zastrzega się następujące ograniczenia:
+//
+// 1. Jeśli używasz tego oprogramowania w swoich
+//    produktach, potwierdzenie pochodzenia tego
+//    oprogramowania w dokumentacji produktu,
+//    byłoby docenione, ale nie jest wymagane.
+//
+////////////////////////////////////////////////////////////
+
+#include "Player.hpp"
+#include "../logic/Bullet.hpp"
+#include "../entityengine/Game.hpp"
+
+namespace logic
+{
+	// Default constructor
+	Player::Player() :
+		Actor{}, // base class constructor
+		m_is_moving_Up{ false },
+		m_is_moving_Down{ false },
+		m_is_moving_Right{ false },
+		m_is_moving_Left{ false },
+		m_is_Shot{ false },
+		m_trigger{}
+	{
+	}
+
+	// Copy constructor
+	Player::Player(const Player& copy) :
+		Actor{ copy }, // base class copy constructor
+		m_is_moving_Up{ copy.m_is_moving_Up },
+		m_is_moving_Down{ copy.m_is_moving_Up },
+		m_is_moving_Right{ copy.m_is_moving_Up },
+		m_is_moving_Left{ copy.m_is_moving_Up },
+		m_is_Shot{ copy.m_is_moving_Up },
+		m_trigger{ copy.m_trigger }
+	{
+	}
+
+	// Move constructor
+	Player::Player(Player&& other) :
+		Actor{ other }, // base class move constructor
+		m_is_moving_Up{ other.m_is_moving_Up },
+		m_is_moving_Down{ other.m_is_moving_Up },
+		m_is_moving_Right{ other.m_is_moving_Up },
+		m_is_moving_Left{ other.m_is_moving_Up },
+		m_is_Shot{ other.m_is_moving_Up },
+		m_trigger{ other.m_trigger }
+	{
+	}
+
+	// Virtual destructor
+	Player::~Player()
+	{
+		m_is_moving_Up = false;
+		m_is_moving_Down = false;
+		m_is_moving_Right = false;
+		m_is_moving_Left = false;
+		m_is_Shot = false;
+	}
+
+	// Overloaded copy assignment operator
+	Player& Player::operator=(const Player& copy)
+	{
+		if (this != &copy)
+		{
+			Actor::operator=(copy);
+			m_is_moving_Up = copy.m_is_moving_Up;
+			m_is_moving_Down = copy.m_is_moving_Down;
+			m_is_moving_Right = copy.m_is_moving_Right;
+			m_is_moving_Left = copy.m_is_moving_Left;
+			m_is_Shot = copy.m_is_Shot;
+			m_trigger = copy.m_trigger;
+		}
+		return *this;
+	}
+
+	// Overloaded move assignment operator
+	Player& Player::operator=(Player&& other)
+	{
+		if (this != &other)
+		{
+			Actor::operator=(other);
+			m_is_moving_Up = other.m_is_moving_Up;
+			m_is_moving_Down = other.m_is_moving_Down;
+			m_is_moving_Right = other.m_is_moving_Right;
+			m_is_moving_Left = other.m_is_moving_Left;
+			m_is_Shot = other.m_is_Shot;
+			m_trigger = other.m_trigger;
+		}
+		return *this;
+	}
+
+	// Get rate of fire 
+	const float Player::getRateFire() const
+	{
+		return m_trigger.getFrequency();
+	}
+
+	// Set rate of fire
+	void Player::setRateFire(float rate_fire)
+	{
+		m_trigger.setFrequency(rate_fire);
+	}
+
+	// Event handling
+	void Player::updatePlayerInput(sf::Keyboard::Key key, bool isPressed)
+	{
+		if (key == sf::Keyboard::Up)
+			m_is_moving_Up = isPressed;
+		else if (key == sf::Keyboard::Down)
+			m_is_moving_Down = isPressed;
+		else if (key == sf::Keyboard::Left)
+			m_is_moving_Left = isPressed;
+		else if (key == sf::Keyboard::Right)
+			m_is_moving_Right = isPressed;
+		else if (key == sf::Keyboard::Space)
+			m_is_Shot = isPressed;
+	}
+
+	// checking if the player is within the camera's field of view - the window area
+	void Player::checkPlayerPosition(float size_x, float size_y)
+	{
+		if (getPosition().x <= getGlobalBounds().width * 0.5f)
+			setPosition(getGlobalBounds().width * 0.5f, getPosition().y);
+		if (getPosition().x >= size_x - getGlobalBounds().width * 0.5f)
+			setPosition(size_x - getGlobalBounds().width * 0.5f, getPosition().y);
+
+		if (getPosition().y <= getGlobalBounds().height * 0.5f)
+			setPosition(getPosition().x, getGlobalBounds().height * 0.5f);
+		if (getPosition().y >= size_y - getGlobalBounds().height * 0.5f)
+			setPosition(getPosition().x, size_y - getGlobalBounds().height * 0.5f);
+	}
+
+	// Virtual method for updating an object
+	void Player::update(float dt)
+	{
+		controlPlayer(dt);
+
+		m_trigger.update(dt);
+		m_signal_type = EntitySignalType::SIGNAL_EMPTY; // reset signal
+
+		if (m_trigger.getEnabled() and m_is_Shot)
+		{
+			m_signal_type = EntitySignalType::SIGNAL_CREATE_BULLET_PLAYER;
+			m_trigger.setEnabled(false);
+		}
+	
+		checkPlayerPosition(static_cast<float>(EntityEngine::getSceneSize().x), static_cast<float>(EntityEngine::getSceneSize().y));
+
+		// update destruction
+		updateDestruction();
+	}
+
+	// Virtual method returns the type of the object - enumeration value
+	const EntityType Player::getType() const
+	{
+		return EntityType::PLAYER;
+	}
+
+	// Virtual method returns the signal generated by the object
+	const EntitySignalType Player::getSignal() const
+	{
+		return m_signal_type;
+	}
+
+	// player control
+	void Player::controlPlayer(float dt)
+	{
+		sf::Vector2f movement(0.f, 0.f);
+
+		if (m_is_moving_Up)
+			movement.y -= m_velocity;
+		if (m_is_moving_Down)
+			movement.y += m_velocity;
+		if (m_is_moving_Left)
+			movement.x -= m_velocity;
+		if (m_is_moving_Right)
+			movement.x += m_velocity;
+		
+		move(movement * dt);
+	}
+
+}//namespace logic
