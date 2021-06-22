@@ -64,7 +64,7 @@ EntityEngine::EntityEngine() :
 //Destruktor wirtualny
 EntityEngine::~EntityEngine()
 {
-	std::vector<Actor*>::iterator it;
+	std::vector<logic::Actor*>::iterator it;
 	for (it = m_entity.begin(); it != m_entity.end(); it++)
 	{
 		if((*it))
@@ -74,7 +74,7 @@ EntityEngine::~EntityEngine()
 }
 
 // The method registers pointers to Entity objects in the container
-void EntityEngine::registerEntity(Actor* entity)
+void EntityEngine::registerEntity(logic::Actor* entity)
 {
 	if (entity)
 		m_entity.push_back(entity);
@@ -111,34 +111,34 @@ void EntityEngine::update(float dt)
 }
 
 // Creates an Actor class object and returns a pointer to this object
-Actor *EntityEngine::createActor()
+logic::Actor *EntityEngine::createActor()
 {
-	return create<Actor>();
+	return create<logic::Actor>();
 }
 
 // Creates an Bullet class object and returns a pointer to this object
-Bullet *EntityEngine::createBullet()
+logic::Bullet *EntityEngine::createBullet()
 {
-	return create<Bullet>();
+	return create<logic::Bullet>();
 }
 
 // Creates an Enemy class object and returns a pointer to this object
-Enemy *EntityEngine::createEnemy()
+logic::Enemy *EntityEngine::createEnemy()
 {
-	return create<Enemy>();
+	return create<logic::Enemy>();
 }
 
 // Creates an Player class object and returns a pointer to this object
-Player *EntityEngine::createPlayer()
+logic::Player *EntityEngine::createPlayer()
 {
-	return create<Player>();
+	return create<logic::Player>();
 }
 
 // Virtual object rendering method
 void EntityEngine::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	//draw entities...
-	std::vector<Actor*>::const_iterator it; // iterator (const) this container
+	std::vector<logic::Actor*>::const_iterator it; // iterator (const) this container
 	for (it = m_entity.begin(); it != m_entity.end(); it++)
 	{
 		if ((*it) != nullptr)
@@ -157,7 +157,7 @@ T* EntityEngine::create()
 }
 
 // checks for collision
-bool EntityEngine::checkCollision(Actor *collider)
+bool EntityEngine::checkCollision(logic::Actor *collider)
 {
 	EntityType type = collider->getType();
 
@@ -198,7 +198,7 @@ bool EntityEngine::checkCollision(Actor *collider)
 }
 
 // produce entity
-void EntityEngine::produceEntity(Actor* parent, EntitySignalType entity_signal_type)
+void EntityEngine::produceEntity(logic::Actor* parent, EntitySignalType entity_signal_type)
 {
 	switch (entity_signal_type)
 	{
@@ -212,11 +212,11 @@ void EntityEngine::produceEntity(Actor* parent, EntitySignalType entity_signal_t
 }
 
 // produce bullet player
-void EntityEngine::produceBulletPlayer(Actor* parent)
+void EntityEngine::produceBulletPlayer(logic::Actor* parent)
 {
 	// player missile production
 	// warning: allocate memory to the pointer *)
-	Bullet *bullet = createBullet();
+	logic::Bullet *bullet = createBullet();
 	bullet->setTexture(m_texture);
 	bullet->setTextureRect(192, 0, 8, 16);
 	bullet->setPosition(parent->getPosition().x, parent->getPosition().y);
@@ -239,11 +239,11 @@ void EntityEngine::produceBulletPlayer(Actor* parent)
 }
 
 // produce bullet enemy
-void EntityEngine::produceBulletEnemy(Actor* parent)
+void EntityEngine::produceBulletEnemy(logic::Actor* parent)
 {
 	// enemy missile production
 	// warning: allocate memory to the pointer *)
-	Bullet *bullet = createBullet();
+	logic::Bullet *bullet = createBullet();
 	bullet->setTexture(m_texture);
 	bullet->setTextureRect(192, 16, 8, 16);
 	bullet->setPosition(parent->getPosition().x, parent->getPosition().y);
@@ -270,7 +270,7 @@ void EntityEngine::produceEnemy()
 {
 	// E n e m y
 	// warning: allocate memory to the pointer *)
-	Enemy *p_enemy = createEnemy();
+	logic::Enemy *p_enemy = createEnemy();
 	p_enemy->setTexture(m_texture);
 	p_enemy->setTextureRect(64, 0, 64, 64);
 	p_enemy->setPosition(400, -200);
@@ -285,7 +285,7 @@ void EntityEngine::produceEnemy()
 }
 
 //prywatna metoda aktualizuje pozycję obiektu w wyniku kolizji
-void EntityEngine::updatePosition(Actor *object, Actor *collider)
+void EntityEngine::updatePosition(logic::Actor *object, logic::Actor *collider)
 {
 	sf::Vector2f new_object_position;
 	sf::Vector2f old_object_position;

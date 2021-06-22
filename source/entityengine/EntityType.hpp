@@ -27,9 +27,10 @@
 #ifndef HPP_ENTITY_TYPE_ACODEMIA
 #define HPP_ENTITY_TYPE_ACODEMIA
 
+////////////////////////////////////////////////////////////
+/// \brief Enumeration of types
 ///
-/// Enumeration of types
-///
+////////////////////////////////////////////////////////////
 enum class EntityType
 {
 	ACTOR  = 0,

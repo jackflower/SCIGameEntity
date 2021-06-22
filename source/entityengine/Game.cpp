@@ -67,7 +67,7 @@ void Game::run()
 }
 
 // The method registers pointers to Entity objects in the container
-void Game::registerEntity(Actor* entity)
+void Game::registerEntity(logic::Actor* entity)
 {
 	m_entity_engine.registerEntity(entity);
 }

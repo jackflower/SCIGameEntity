@@ -27,141 +27,181 @@
 #ifndef HPP_ENTITY_ACODEMIA
 #define HPP_ENTITY_ACODEMIA
 
+////////////////////////////////////////////////////////////
+// Headers
+////////////////////////////////////////////////////////////
 #include <SFML/Graphics.hpp>
 
 namespace logic
 {
-	///
-	/// Class represents base class of game objects
+	////////////////////////////////////////////////////////////
+	/// \brief Class represents base class of game objects
 	///
 	/// Inherits from the class sf::Transformable
 	/// allowing geometric transformations
 	/// of position, rotation and scale
 	///
 	/// Inherits from the sf::Drawable class
-	/// abstract base class for objects that can be drawn to a render target
-
+	/// abstract base class for objects
+	/// that can be drawn to a render target
+	///
+	/// \see sf::Drawable
+	/// \see sf::Transformable
+	///
+	////////////////////////////////////////////////////////////
 	class Entity : public sf::Drawable, public sf::Transformable
 	{
 
 	public:
 
+		////////////////////////////////////////////////////////////
+		/// \brief Default constructor
 		///
-		/// Default constructor
-		///
+		////////////////////////////////////////////////////////////
 		Entity();
 
+		////////////////////////////////////////////////////////////
+		/// \brief Copy constructor
 		///
-		/// Copy constructor
+		/// \param copy - copy source
 		///
-		/// @param copy - copy source
-		///
+		////////////////////////////////////////////////////////////
 		Entity(const Entity& copy);
 
+		////////////////////////////////////////////////////////////
+		/// \brief Move constructor
 		///
-		/// Move constructor
+		/// \param other - reference to r-value 
 		///
-		/// @param other - reference to r-value 
-		///
+		////////////////////////////////////////////////////////////
 		Entity(Entity&& other);
 
+		////////////////////////////////////////////////////////////
+		/// \brief Virtual destructor
 		///
-		/// Virtual destructor
-		///
+		////////////////////////////////////////////////////////////
 		~Entity();
 
+		////////////////////////////////////////////////////////////
+		/// \brief Overloaded copy assignment operator
 		///
-		/// Overloaded copy assignment operator
+		/// \param copy - copy source
 		///
-		/// @param copy - copy source
-		///
+		////////////////////////////////////////////////////////////
 		Entity& operator=(const Entity& copy);
 
+		////////////////////////////////////////////////////////////
+		/// \brief Overloaded move assignment operator
 		///
-		/// Overloaded move assignment operator
+		/// \param other - reference to r-value 
 		///
-		/// @param other -  reference to r-value 
-		///
+		////////////////////////////////////////////////////////////
 		Entity& operator=(Entity&& other);
 
+		////////////////////////////////////////////////////////////
+		/// \brief Get the sub-rectangle of the texture
+		/// that the object will display
 		///
-		/// Get the sub-rectangle of the texture that the object will display
+		/// \return Texture rectangle of the sprite
 		///
+		////////////////////////////////////////////////////////////
 		const sf::IntRect& getTextureRect() const;
 
+		////////////////////////////////////////////////////////////
+		/// \brief Set the sub-rectangle of the texture
+		/// that the object will display
 		///
-		/// Set the sub-rectangle of the texture that the object will display
+		/// \param rectLeft - left corner of the rectangular area
+		/// \param rectTop - top corner of the rectangular area
+		/// \param rectWidth - width of the rectangular area
+		/// \param rectHeight - height of the rectangular area
 		///
-		/// @param rectLeft - left corner of the rectangular area
-		///
-		/// @param rectTop - top corner of the rectangular area
-		///
-		/// @param rectWidth - width of the rectangular area
-		///
-		/// @param rectHeight - height of the rectangular area
-		///
+		////////////////////////////////////////////////////////////
 		void setTextureRect(int rectLeft, int rectTop, int rectWidth, int rectHeight);
 
+		////////////////////////////////////////////////////////////
+		/// \brief Set the sub-rectangle of the texture
+		/// that the object will display
 		///
-		/// Set the sub-rectangle of the texture that the object will display
+		/// \param rectangle - constant reference to an object
+		/// of class sf::IntRect
 		///
-		/// @param rectangle - constant reference to an object of class sf::IntRect
-		///
+		////////////////////////////////////////////////////////////
 		void setTextureRect(const sf::IntRect& rectangle);
 
+		/////////////////////////////////////////////////////////////
+		/// \brief Get the local bounding rectangle of the entity
 		///
-		/// Get the local bounding rectangle of the entity
+		/// \return Local bounding rectangle of the entity
 		///
+		////////////////////////////////////////////////////////////
 		sf::FloatRect getLocalBounds() const;
 
+		////////////////////////////////////////////////////////////
+		/// \brief Get the global bounding rectangle of the entity
 		///
-		/// Get the global bounding rectangle of the entity
+		/// \return global bounding rectangle of the entity
 		///
+		////////////////////////////////////////////////////////////
 		sf::FloatRect getGlobalBounds() const;
 
+		////////////////////////////////////////////////////////////
+		/// \brief Get the global color of the object
 		///
-		/// Get the global color of the object
+		/// \return Global color of the sprite
 		///
+		////////////////////////////////////////////////////////////
 		const sf::Color& getColor() const;
 
+		////////////////////////////////////////////////////////////
+		/// \brief Set the global color of the object
 		///
-		/// Set the global color of the object
+		/// \param color - constant reference to an object
+		/// of class sf::Color
 		///
-		///@param color - constant reference to an object of class sf::Color
-		///
+		////////////////////////////////////////////////////////////
 		void setColor(const sf::Color& color);
 
+		////////////////////////////////////////////////////////////
+		/// \brief Get the source texture of the sprite
 		///
-		/// Get the source texture of the sprite
+		/// \return Pointer to the sprite's texture
 		///
+		////////////////////////////////////////////////////////////
 		const sf::Texture* getTexture() const;
 
+		////////////////////////////////////////////////////////////
+		/// \brief Change the source texture of the object
 		///
-		/// Change the source texture of the object
+		/// \param texture - constant reference to an object
+		/// of class sf::Texture
 		///
-		/// @param texture - constant reference to an object of class sf::Texture
-		///
+		////////////////////////////////////////////////////////////
 		void setTexture(const sf::Texture& texture);
 
+		////////////////////////////////////////////////////////////
+		/// \brief Virtual abstract method for updating an object
 		///
-		/// Virtual abstract method for updating an object
+		/// \param dt - time
 		///
-		/// @param dt - time
-		///
+		////////////////////////////////////////////////////////////
 		virtual void update(float dt) = 0;
 
+		////////////////////////////////////////////////////////////
+		/// \brief Virtual object rendering method
 		///
-		/// Virtual object rendering method
+		/// \param target - reference to the graphic context
+		/// \param states - render states
 		///
-		/// @param target - reference to the graphic context
-		///
-		/// @param states - render states
-		///
+		////////////////////////////////////////////////////////////
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 		
 	private:
 
-		sf::Sprite m_sprite; // rendered object
+		////////////////////////////////////////////////////////////
+		// Member data
+		////////////////////////////////////////////////////////////		
+		sf::Sprite m_sprite; //!< rendered object
 
 	};
 } //namespace logic

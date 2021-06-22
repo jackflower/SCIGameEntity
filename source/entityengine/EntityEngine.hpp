@@ -27,6 +27,9 @@
 #ifndef HPP_ENTITY_ENGINE_ACODEMIA
 #define HPP_ENTITY_ENGINE_ACODEMIA
 
+////////////////////////////////////////////////////////////
+// Headers
+////////////////////////////////////////////////////////////
 #include "SFML/Graphics.hpp"
 #include "../entityengine/EntityType.hpp"
 #include "../entityengine/EntitySignalType.hpp"
@@ -40,111 +43,146 @@ namespace logic
 	class Player;
 }
 
-using logic::Actor;
-using logic::Bullet;
-using logic::Enemy;
-using logic::Player;
 
+////////////////////////////////////////////////////////////
+/// \brief Class represents a container for storing
+/// and managing game objects
 ///
-// Class represents a container for storing and managing game objects
-///
+////////////////////////////////////////////////////////////
 class EntityEngine
 {
 public:
 
+	////////////////////////////////////////////////////////////
+	/// \brief Default constructor
 	///
-	/// Default constructor
-	///
+	////////////////////////////////////////////////////////////
 	EntityEngine();
 
+	////////////////////////////////////////////////////////////
+	/// \brief Virtual destructor
 	///
-	/// Virtual destructor
-	///
+	////////////////////////////////////////////////////////////
 	virtual ~EntityEngine();
 
+	////////////////////////////////////////////////////////////
+	/// \brief The method registers pointers to Entity
+	/// objects in the container
 	///
-	/// The method registers pointers to Entity objects in the container
+	/// \param *entity - a pointer to an Entity object 
 	///
-	/// @param *entity - a pointer to an Entity object 
-	///
-	void registerEntity(Actor* entity);
+	////////////////////////////////////////////////////////////
+	void registerEntity(logic::Actor* entity);
 
+	////////////////////////////////////////////////////////////
+	/// \brief The method returns the texture
 	///
-	/// The method returns the texture
+	/// \return const reference to sf::Texture
 	///
+	////////////////////////////////////////////////////////////
 	const sf::Texture& getTexture() const;
 
+	////////////////////////////////////////////////////////////
+	/// \brief Container update with pointers to Entity objects
 	///
-	/// Container update with pointers to Entity objects
+	/// \param dt - time
 	///
-	/// @param dt - time
-	///
+	////////////////////////////////////////////////////////////
 	void update(float dt);
 
+	////////////////////////////////////////////////////////////
+	/// \brief Creates an Actor class object and returns
+	/// a pointer to this object
 	///
-	/// Creates an Actor class object and returns a pointer to this object
+	/// \return Pointer to the logic::Actor object
 	///
-	Actor *createActor();
+	////////////////////////////////////////////////////////////
+	logic::Actor *createActor();
 
+	////////////////////////////////////////////////////////////
+	/// \brief Creates an Bullet class object and returns
+	/// a pointer to this object
 	///
-	/// Creates an Bullet class object and returns a pointer to this object
+	/// \return Pointer to the logic::Bullet object
 	///
-	Bullet *createBullet();
+	////////////////////////////////////////////////////////////
+	logic::Bullet *createBullet();
 
+	////////////////////////////////////////////////////////////
+	/// \brief Creates an Enemy class object and returns
+	/// a pointer to this object
 	///
-	/// Creates an Enemy class object and returns a pointer to this object
+	/// \return Pointer to the logic::Enemy object
 	///
-	Enemy *createEnemy();
+	////////////////////////////////////////////////////////////
+	logic::Enemy *createEnemy();
 
+	////////////////////////////////////////////////////////////
+	/// \brief Creates an Player class object and returns
+	/// a pointer to this object
 	///
-	/// Creates an Player class object and returns a pointer to this object
+	/// \return Pointer to the logic::Player object
 	///
-	Player *createPlayer();
+	////////////////////////////////////////////////////////////
+	logic::Player *createPlayer();
 
+	////////////////////////////////////////////////////////////
+	/// \brief Virtual object rendering method
 	///
-	/// Virtual object rendering method
+	/// \param target - reference to the graphic context
 	///
-	/// @param target - reference to the graphic context
+	/// \param states - render states
 	///
-	/// @param states - render states
-	///
+	////////////////////////////////////////////////////////////
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 
 	// static
 
-	// get the size of the rendering region of the window
+	////////////////////////////////////////////////////////////
+	/// \brief Get the size of the rendering region of the window
+	///
+	/// \return size of the window
+	///
+	////////////////////////////////////////////////////////////
 	static const sf::Vector2u& getSceneSize();
 
-	// set the size of the rendering region of the window
+	////////////////////////////////////////////////////////////
+	/// \brief Set the size of the rendering region of the window
+	///
+	////////////////////////////////////////////////////////////
 	static void setSceneSize(const sf::Vector2u& scene_size);
 
 private:
 
+	////////////////////////////////////////////////////////////
+	// Member data
+	////////////////////////////////////////////////////////////
+	
 	// the container holds pointers to Actor objects
-	std::vector<Actor* > m_entity;
+	std::vector<logic::Actor* > m_entity;
 	sf::Texture m_texture; // texture atlas
 
 	// the template of the method that creates the object
 	template<class T> T* create();
 
 	// checks for collision
-	bool checkCollision(Actor *collider);
+	bool checkCollision(logic::Actor *collider);
 
 	// produce entity
-	void produceEntity(Actor* parent, EntitySignalType entity_signal_type);
+	void produceEntity(logic::Actor* parent, EntitySignalType entity_signal_type);
 
 	// produce bullet player
-	void produceBulletPlayer(Actor* parent);
+	void produceBulletPlayer(logic::Actor* parent);
 
 	// produce bullet enemy
-	void produceBulletEnemy(Actor* parent);
+	void produceBulletEnemy(logic::Actor* parent);
 
 	// produce enemy
 	void produceEnemy();
 
 	// updating the position of the object after a collision collision
-	void updatePosition(Actor *object, Actor *collider);
+	void updatePosition(logic::Actor *object, logic::Actor *collider);
 
 	// static
 	static sf::Vector2u m_scene_size; // size of the rendering region of the window

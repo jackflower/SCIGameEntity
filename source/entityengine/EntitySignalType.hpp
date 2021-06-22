@@ -27,9 +27,10 @@
 #ifndef HPP_ENTITY_SIGNAL_TYPE_ACODEMIA
 #define HPP_ENTITY_SIGNAL_TYPE_ACODEMIA
 
+////////////////////////////////////////////////////////////
+/// \brief Enumeration of signal types
 ///
-/// Enumeration of signal types
-///
+////////////////////////////////////////////////////////////
 enum class EntitySignalType
 {
 	SIGNAL_EMPTY				= 0, // no signal
