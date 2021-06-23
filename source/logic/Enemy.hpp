@@ -116,10 +116,10 @@ namespace logic
 		virtual void update(float dt) override;
 
 		/////////////////////////////////////////////////////////////
-		/// \brief Virtual method returns the type of the object - enumeration value
+		/// \brief Virtual method returns the type
+		/// of the object - enumeration value
 		///
 		/// \return Enumeration type of the object
-		///
 		///
 		/// \see EntityType
 		///

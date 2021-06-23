@@ -143,7 +143,6 @@ namespace logic
 		///
 		/// \return Enumeration type of the object
 		///
-		///
 		/// \see EntityType
 		///
 		////////////////////////////////////////////////////////////

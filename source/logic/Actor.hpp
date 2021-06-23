@@ -167,7 +167,7 @@ namespace logic
 		const float getCollisionDamage() const;
 
 		////////////////////////////////////////////////////////////
-		/// \brief Method sets the rate of fire
+		/// \brief Method sets collision damage
 		///
 		/// \param collision_damage - collision damage
 		///

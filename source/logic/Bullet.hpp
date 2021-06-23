@@ -92,7 +92,7 @@ namespace logic
 		Bullet& operator=(Bullet&& other);
 
 		////////////////////////////////////////////////////////////
-		/// \brief Get a time to self-destruct 
+		/// \brief Get a time to self-destruct
 		///
 		/// \return time to destruction
 		///
@@ -100,7 +100,7 @@ namespace logic
 		const float getTimeToDestruction();
 
 		////////////////////////////////////////////////////////////
-		/// \brief Set a time to self-destruct 
+		/// \brief Set a time to self-destruct
 		///
 		/// \param time_to_destruction - time to destruction
 		///

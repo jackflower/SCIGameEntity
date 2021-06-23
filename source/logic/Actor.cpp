@@ -161,7 +161,7 @@ namespace logic
 		return m_collision_damage;
 	}
 
-	// Method sets the rate of fire
+	// Method sets collision damage
 	void Actor::setCollisionDamage(float collision_damage)
 	{
 		m_collision_damage = collision_damage;
