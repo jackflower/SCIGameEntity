@@ -91,12 +91,8 @@ void EntityEngine::update(float dt)
 {
 	for (unsigned int i = 0; i < m_entity.size(); i++)
 	{
-		if (m_entity.at(i)->getSignal() == EntitySignalType::SIGNAL_CREATE_BULLET_PLAYER)
-			produceEntity(m_entity.at(i), EntitySignalType::SIGNAL_CREATE_BULLET_PLAYER);
-
-		if (m_entity.at(i)->getSignal() == EntitySignalType::SIGNAL_CREATE_BULLET_ENEMY)
-			produceEntity(m_entity.at(i), EntitySignalType::SIGNAL_CREATE_BULLET_ENEMY);
-
+		// produce the subject depending on and on the signal
+		produceEntity(m_entity.at(i), m_entity.at(i)->getSignal());
 		checkCollision(m_entity.at(i));
 		m_entity.at(i)->update(dt);
 
@@ -207,6 +203,8 @@ void EntityEngine::produceEntity(logic::Actor* parent, EntitySignalType entity_s
 		break;
 	case EntitySignalType::SIGNAL_CREATE_BULLET_ENEMY:
 		produceBulletEnemy(parent);
+		break;
+	default:
 		break;
 	}
 }
