@@ -1,6 +1,9 @@
 ﻿#include <SFML/Graphics.hpp>
 #include <iostream>
 
+
+// na etapie tworzenie dokumentacji ten kod jest produkcyjnym
+
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(400, 300), "Acodemia SCI Game Entity 2021", sf::Style::Close);
