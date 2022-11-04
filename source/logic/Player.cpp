@@ -125,13 +125,13 @@ namespace logic
 	{
 		if (key == sf::Keyboard::Up)
 			m_is_moving_Up = isPressed;
-		else if (key == sf::Keyboard::Down)
+		if (key == sf::Keyboard::Down)
 			m_is_moving_Down = isPressed;
-		else if (key == sf::Keyboard::Left)
+		if (key == sf::Keyboard::Left)
 			m_is_moving_Left = isPressed;
-		else if (key == sf::Keyboard::Right)
+		if (key == sf::Keyboard::Right)
 			m_is_moving_Right = isPressed;
-		else if (key == sf::Keyboard::Space)
+		if (key == sf::Keyboard::Space)
 			m_is_Shot = isPressed;
 	}
 
@@ -184,17 +184,36 @@ namespace logic
 	// player control
 	void Player::controlPlayer(float dt)
 	{
+		// wektora kierunku
 		sf::Vector2f movement(0.f, 0.f);
 
 		if (m_is_moving_Up)
 			movement.y -= m_velocity;
+			//movement.y -= 1;
 		if (m_is_moving_Down)
 			movement.y += m_velocity;
+			//movement.y += 1;
 		if (m_is_moving_Left)
 			movement.x -= m_velocity;
+			//movement.x -= 1;
 		if (m_is_moving_Right)
 			movement.x += m_velocity;
-		
+			//movement.x += 1;
+
+		// normalization of the direction vector - temporary code - replacement
+		float vectorLength = sqrt((movement.x * movement.x) + (movement.y * movement.y));
+		if (vectorLength != 0)
+		{
+			movement.x = (movement.x / vectorLength);
+			movement.y = (movement.y / vectorLength);
+		}
+		else
+			movement.x = movement.y = 0.0f;
+
+		// product of velocity and normalized direction vector
+		movement *= m_velocity;
+
+		// player position update
 		move(movement * dt);
 	}
 

@@ -18,6 +18,12 @@
 *.sln
 main_test.cpp
 
+# 2022-11-04
+notes.txt
+collision
+sprite_texture_blue.png
+sprite_texture_red.png
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 

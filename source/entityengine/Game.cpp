@@ -30,7 +30,7 @@
 // Default constructor
 Game::Game() :
 	m_size{ 800, 600 },
-	m_render_window{ sf::VideoMode(m_size.x, m_size.y), "Acodemia SCI Game Entity 2021", sf::Style::Close },
+	m_render_window{ sf::VideoMode(m_size.x, m_size.y), "Acodemia SCI Game Entity 2022", sf::Style::Close },
 	m_entity_engine{},
 	p_player{ nullptr }
 {
