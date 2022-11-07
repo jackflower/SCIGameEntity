@@ -230,7 +230,7 @@ void EntityEngine::produceBulletPlayer(logic::Actor* parent)
 	float shot_emiter = 0.0f;
 	float parent_half_height = parent->getGlobalBounds().height * 0.5f;
 	float bullet_half_height = bullet->getGlobalBounds().height * 0.5f;
-	float separation_factor_height = 2.0f;
+	float separation_factor_height = 8.0f;
 	shot_emiter = parent_half_height + bullet_half_height + separation_factor_height;
 	// the projectile moves up
 	bullet->setPosition(parent->getPosition().x, (parent->getPosition().y - shot_emiter));

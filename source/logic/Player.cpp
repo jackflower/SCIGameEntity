@@ -131,7 +131,7 @@ namespace logic
 			m_is_moving_Left = isPressed;
 		if (key == sf::Keyboard::Right)
 			m_is_moving_Right = isPressed;
-		if (key == sf::Keyboard::Space)
+		if (key == sf::Keyboard::A)
 			m_is_Shot = isPressed;
 	}
 
