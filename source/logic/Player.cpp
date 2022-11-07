@@ -184,28 +184,24 @@ namespace logic
 	// player control
 	void Player::controlPlayer(float dt)
 	{
-		// wektora kierunku
+		// direction vector
 		sf::Vector2f movement(0.f, 0.f);
 
 		if (m_is_moving_Up)
 			movement.y -= m_velocity;
-			//movement.y -= 1;
 		if (m_is_moving_Down)
 			movement.y += m_velocity;
-			//movement.y += 1;
 		if (m_is_moving_Left)
 			movement.x -= m_velocity;
-			//movement.x -= 1;
 		if (m_is_moving_Right)
 			movement.x += m_velocity;
-			//movement.x += 1;
 
 		// normalization of the direction vector - temporary code - replacement
 		float vectorLength = sqrt((movement.x * movement.x) + (movement.y * movement.y));
 		if (vectorLength != 0)
 		{
-			movement.x = (movement.x / vectorLength);
-			movement.y = (movement.y / vectorLength);
+			movement.x /= vectorLength;
+			movement.y /= vectorLength;
 		}
 		else
 			movement.x = movement.y = 0.0f;
