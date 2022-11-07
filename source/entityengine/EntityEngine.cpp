@@ -212,6 +212,8 @@ void EntityEngine::produceEntity(logic::Actor* parent, EntitySignalType entity_s
 // produce bullet player
 void EntityEngine::produceBulletPlayer(logic::Actor* parent)
 {
+	if (parent == nullptr)
+		return;
 	// player missile production
 	// warning: allocate memory to the pointer *)
 	logic::Bullet *bullet = createBullet();
@@ -234,11 +236,14 @@ void EntityEngine::produceBulletPlayer(logic::Actor* parent)
 	shot_emiter = parent_half_height + bullet_half_height + separation_factor_height;
 	// the projectile moves up
 	bullet->setPosition(parent->getPosition().x, (parent->getPosition().y - shot_emiter));
+	parent->setSignal(EntitySignalType::SIGNAL_EMPTY);
 }
 
 // produce bullet enemy
 void EntityEngine::produceBulletEnemy(logic::Actor* parent)
 {
+	if (parent == nullptr)
+		return;
 	// enemy missile production
 	// warning: allocate memory to the pointer *)
 	logic::Bullet *bullet = createBullet();
@@ -261,6 +266,7 @@ void EntityEngine::produceBulletEnemy(logic::Actor* parent)
 	shot_emiter = parent_half_height + bullet_half_height + separation_factor_height;
 	// the projectile moves down
 	bullet->setPosition(parent->getPosition().x, (parent->getPosition().y + shot_emiter));
+	parent->setSignal(EntitySignalType::SIGNAL_EMPTY);
 }
 
 // produce enemy

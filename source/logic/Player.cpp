@@ -155,7 +155,7 @@ namespace logic
 		controlPlayer(dt);
 
 		m_trigger.update(dt);
-		m_signal_type = EntitySignalType::SIGNAL_EMPTY; // reset signal
+		//m_signal_type = EntitySignalType::SIGNAL_EMPTY; // reset signal
 
 		if (m_trigger.getEnabled() and m_is_Shot)
 		{
