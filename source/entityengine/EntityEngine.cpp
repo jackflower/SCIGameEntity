@@ -200,9 +200,11 @@ void EntityEngine::produceEntity(logic::Actor* parent, EntitySignalType entity_s
 	{
 	case EntitySignalType::SIGNAL_CREATE_BULLET_PLAYER:
 		produceBulletPlayer(parent);
+		parent->setSignal(EntitySignalType::SIGNAL_EMPTY); // reset signal
 		break;
 	case EntitySignalType::SIGNAL_CREATE_BULLET_ENEMY:
 		produceBulletEnemy(parent);
+		parent->setSignal(EntitySignalType::SIGNAL_EMPTY); // reset signal
 		break;
 	default:
 		break;
@@ -236,7 +238,6 @@ void EntityEngine::produceBulletPlayer(logic::Actor* parent)
 	shot_emiter = parent_half_height + bullet_half_height + separation_factor_height;
 	// the projectile moves up
 	bullet->setPosition(parent->getPosition().x, (parent->getPosition().y - shot_emiter));
-	parent->setSignal(EntitySignalType::SIGNAL_EMPTY);
 }
 
 // produce bullet enemy
@@ -266,7 +267,6 @@ void EntityEngine::produceBulletEnemy(logic::Actor* parent)
 	shot_emiter = parent_half_height + bullet_half_height + separation_factor_height;
 	// the projectile moves down
 	bullet->setPosition(parent->getPosition().x, (parent->getPosition().y + shot_emiter));
-	parent->setSignal(EntitySignalType::SIGNAL_EMPTY);
 }
 
 // produce enemy
