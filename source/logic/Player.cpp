@@ -195,8 +195,10 @@ namespace logic
 			m_movement.x -= m_velocity;
 		if (m_is_moving_Right)
 			m_movement.x += m_velocity;
-
-		m_movement = EntityEngine::normalize(m_movement);
+		
+		// function call optimization
+		if ((m_movement.x * m_movement.x) + (m_movement.y * m_movement.y) >  0.f)
+			m_movement = EntityEngine::normalize(m_movement);
 		
 		// player position update
 		move(m_movement * m_velocity * dt);
