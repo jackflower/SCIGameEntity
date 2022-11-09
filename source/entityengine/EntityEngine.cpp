@@ -237,9 +237,8 @@ void EntityEngine::produceBulletPlayer(logic::Actor* parent)
 	bullet->setTimeToDestruction(10);
 	bullet->setVelocity(300);
 	
-	// direction vector
-	sf::Vector2f player_bullet_movement(0.f, -1.f); // default player missile moves up
-	bullet->setMovement(EntityEngine::normalize(player_bullet_movement));
+	// direction vector - default player missile moves up
+	bullet->setMovement(EntityEngine::normalize(sf::Vector2f(0.f, -1.f)));
 	
 	bullet->setHealth(100.0f);
 	bullet->setCollisionDamage(10);
@@ -271,9 +270,8 @@ void EntityEngine::produceBulletEnemy(logic::Actor* parent)
 	bullet->setTimeToDestruction(10);
 	bullet->setVelocity(300);
 
-	// direction vector
-	sf::Vector2f enemy_bullet_movement(0.f, 1.f); // default enemy missile moves down
-	bullet->setMovement(EntityEngine::normalize(enemy_bullet_movement));
+	// direction vector - default enemy missile moves down
+	bullet->setMovement(EntityEngine::normalize(sf::Vector2f(0.f, 1.f)));
 	
 	//bullet->setMovement(movement);
 	bullet->setHealth(100.0f);
@@ -303,9 +301,8 @@ void EntityEngine::produceEnemy()
 	p_enemy->setScale(p_enemy->getScale().x, -p_enemy->getScale().y); // flip about the x axis
 	p_enemy->setVelocity(50);
 
-	// direction vector
-	sf::Vector2f enemy_movement(0.f, 1.f); // default the enemy moves down
-	p_enemy->setMovement(EntityEngine::normalize(enemy_movement));
+	// direction vector - default the enemy moves down
+	p_enemy->setMovement(EntityEngine::normalize(sf::Vector2f(0.f, 1.f)));
 
 	p_enemy->setOrigin(p_enemy->getLocalBounds().width * 0.5f, p_enemy->getLocalBounds().height * 0.5f);
 	p_enemy->setRateFire(0.25f);
