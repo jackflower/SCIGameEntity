@@ -47,8 +47,18 @@ void EntityEngine::setSceneSize(const sf::Vector2u& scene_size)
 	m_scene_size = scene_size;
 }
 
+// method returns a normalized vector
+sf::Vector2f EntityEngine::normalize(const sf::Vector2f & source)
+{
+	float length = sqrt((source.x * source.x) + (source.y * source.y));
+	if (length != 0)
+		return sf::Vector2f(source.x / length, source.y / length);
+	else
+		return source;
+}
 
-//Konstruktor domyślny
+
+// Default constructor
 EntityEngine::EntityEngine() :
 	m_entity{},
 	m_texture{}
@@ -61,7 +71,7 @@ EntityEngine::EntityEngine() :
 	produceEnemy();
 }
 
-//Destruktor wirtualny
+// Virtual destructor
 EntityEngine::~EntityEngine()
 {
 	std::vector<logic::Actor*>::iterator it;
@@ -225,7 +235,12 @@ void EntityEngine::produceBulletPlayer(logic::Actor* parent)
 	bullet->setScale(parent->getScale().x, parent->getScale().y);
 	bullet->setOrigin(bullet->getLocalBounds().width * 0.5f, bullet->getLocalBounds().height * 0.5f);
 	bullet->setTimeToDestruction(10);
-	bullet->setVelocity(-300); // the projectile moves up
+	bullet->setVelocity(300);
+	
+	// direction vector
+	sf::Vector2f player_bullet_movement(0.f, -1.f); // default player missile moves up
+	bullet->setMovement(EntityEngine::normalize(player_bullet_movement));
+	
 	bullet->setHealth(100.0f);
 	bullet->setCollisionDamage(10);
 	// warning: *) memory is released in the container
@@ -254,7 +269,13 @@ void EntityEngine::produceBulletEnemy(logic::Actor* parent)
 	bullet->setScale(parent->getScale().x, parent->getScale().y);
 	bullet->setOrigin(bullet->getLocalBounds().width * 0.5f, bullet->getLocalBounds().height * 0.5f);
 	bullet->setTimeToDestruction(10);
-	bullet->setVelocity(300); // the projectile moves up
+	bullet->setVelocity(300);
+
+	// direction vector
+	sf::Vector2f enemy_bullet_movement(0.f, 1.f); // default enemy missile moves down
+	bullet->setMovement(EntityEngine::normalize(enemy_bullet_movement));
+	
+	//bullet->setMovement(movement);
 	bullet->setHealth(100.0f);
 	bullet->setCollisionDamage(10);
 	// warning: *) memory is released in the container
@@ -281,6 +302,11 @@ void EntityEngine::produceEnemy()
 	p_enemy->setScale(1, 1);
 	p_enemy->setScale(p_enemy->getScale().x, -p_enemy->getScale().y); // flip about the x axis
 	p_enemy->setVelocity(50);
+
+	// direction vector
+	sf::Vector2f enemy_movement(0.f, 1.f); // default the enemy moves down
+	p_enemy->setMovement(EntityEngine::normalize(enemy_movement));
+
 	p_enemy->setOrigin(p_enemy->getLocalBounds().width * 0.5f, p_enemy->getLocalBounds().height * 0.5f);
 	p_enemy->setRateFire(0.25f);
 	p_enemy->setHealth(100.0f);

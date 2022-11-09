@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////
 //
-// Acodemia Copyright (C) Jacek Kwiatek 2021
+// Acodemia Copyright (C) Jacek Kwiatek 2022
 // e-mail: jackflower (at) poczta.onet.pl
 // acodemia.pl
 //
@@ -100,9 +100,7 @@ namespace logic
 	// Virtual method updates the object 
 	void Enemy::update(float dt)
 	{
-		sf::Vector2f movement(0.f, 0.f);
-		movement.y += m_velocity;
-		move(movement * dt);
+		move(m_movement * m_velocity * dt); // enemy position update
 
 		// activation of self-destruct when an object enters the camera area
 		if (!m_selfdestruction_token and inCamera())
@@ -113,7 +111,6 @@ namespace logic
 			setDestruction(true);
 			
 		m_trigger.update(dt);
-		//m_signal_type = EntitySignalType::SIGNAL_EMPTY; // reset signal
 
 		if (m_trigger.getEnabled() and inCamera())
 		{

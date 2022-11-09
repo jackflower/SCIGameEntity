@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////
 //
-// Acodemia Copyright (C) Jacek Kwiatek 2021
+// Acodemia Copyright (C) Jacek Kwiatek 2022
 // e-mail: jackflower (at) poczta.onet.pl
 // acodemia.pl
 //
@@ -94,9 +94,7 @@ namespace logic
 	// Virtual method updates the object 
 	void Bullet::update(float dt)
 	{
-		sf::Vector2f movement(0.f, 0.f);
-		movement.y += m_velocity;
-		move(movement * dt);
+		move(m_movement * m_velocity * dt); // bullet position update
 	
 		m_time_to_destruction -= dt; // we are counting down the time to destruction
 

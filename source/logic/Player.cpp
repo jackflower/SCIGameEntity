@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////
 //
-// Acodemia Copyright (C) Jacek Kwiatek 2021
+// Acodemia Copyright (C) Jacek Kwiatek 2022
 // e-mail: jackflower (at) poczta.onet.pl
 // acodemia.pl
 //
@@ -185,32 +185,21 @@ namespace logic
 	void Player::controlPlayer(float dt)
 	{
 		// direction vector
-		sf::Vector2f movement(0.f, 0.f);
+		m_movement.x = m_movement.y = 0.f; // stop the player...
 
 		if (m_is_moving_Up)
-			movement.y -= m_velocity;
+			m_movement.y -= m_velocity;
 		if (m_is_moving_Down)
-			movement.y += m_velocity;
+			m_movement.y += m_velocity;
 		if (m_is_moving_Left)
-			movement.x -= m_velocity;
+			m_movement.x -= m_velocity;
 		if (m_is_moving_Right)
-			movement.x += m_velocity;
+			m_movement.x += m_velocity;
 
-		// normalization of the direction vector - temporary code - replacement
-		float vectorLength = sqrt((movement.x * movement.x) + (movement.y * movement.y));
-		if (vectorLength != 0)
-		{
-			movement.x /= vectorLength;
-			movement.y /= vectorLength;
-		}
-		else
-			movement.x = movement.y = 0.0f;
-
-		// product of velocity and normalized direction vector
-		movement *= m_velocity;
-
+		m_movement = EntityEngine::normalize(m_movement);
+		
 		// player position update
-		move(movement * dt);
+		move(m_movement * m_velocity * dt);
 	}
 
 }//namespace logic

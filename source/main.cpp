@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////
 //
-// Acodemia Copyright (C) Jacek Kwiatek 2021
+// Acodemia Copyright (C) Jacek Kwiatek 2022
 // e-mail: jackflower (at) poczta.onet.pl
 // acodemia.pl
 //

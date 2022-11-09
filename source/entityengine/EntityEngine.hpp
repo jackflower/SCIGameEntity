@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////
 //
-// Acodemia Copyright (C) Jacek Kwiatek 2021
+// Acodemia Copyright (C) Jacek Kwiatek 2022
 // e-mail: jackflower (at) poczta.onet.pl
 // acodemia.pl
 //
@@ -153,6 +153,16 @@ public:
 	////////////////////////////////////////////////////////////
 	static void setSceneSize(const sf::Vector2u& scene_size);
 
+	////////////////////////////////////////////////////////////
+	/// \brief Method returns a normalized vector
+	///
+	/// \return normalized vector
+	///
+	/// \param source - constant reference to the sf::Vector2f
+	///
+	////////////////////////////////////////////////////////////
+	static sf::Vector2f normalize(const sf::Vector2f & source);
+
 private:
 
 	////////////////////////////////////////////////////////////
@@ -186,6 +196,5 @@ private:
 
 	// static
 	static sf::Vector2u m_scene_size; // size of the rendering region of the window
-
 };
 #endif//HPP_ENTITY_ENGINE_ACODEMIA
