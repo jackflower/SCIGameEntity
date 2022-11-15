@@ -191,7 +191,7 @@ private:
 	// produce enemy
 	void produceEnemy();
 
-	// updating the position of the object after a collision collision
+	// updating the position of the object after a collision collision - test function
 	void updatePosition(logic::Actor *object, logic::Actor *collider);
 
 	// static
