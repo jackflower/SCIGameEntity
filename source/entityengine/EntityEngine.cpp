@@ -106,6 +106,7 @@ void EntityEngine::update(float dt)
 		checkCollision(m_entity.at(i));
 		m_entity.at(i)->update(dt);
 
+		// ultimately - a predicate function
 		// if the object is marked for destruction
 		if (m_entity.at(i)->getDestruction())
 		{
@@ -208,6 +209,8 @@ void EntityEngine::produceEntity(logic::Actor* parent, EntitySignalType entity_s
 {
 	switch (entity_signal_type)
 	{
+	case EntitySignalType::SIGNAL_EMPTY:
+		break;
 	case EntitySignalType::SIGNAL_CREATE_BULLET_PLAYER:
 		produceBulletPlayer(parent);
 		parent->setSignal(EntitySignalType::SIGNAL_EMPTY); // reset signal
@@ -311,16 +314,16 @@ void EntityEngine::produceEnemy()
 	// warning: *) memory is released in the container
 }
 
-//prywatna metoda aktualizuje pozycję obiektu w wyniku kolizji
+// updating the position of the object after a collision collision - test function
 void EntityEngine::updatePosition(logic::Actor *object, logic::Actor *collider)
 {
 	sf::Vector2f new_object_position;
 	sf::Vector2f old_object_position;
-	old_object_position = object->getPosition();//zapamiętujemy pozycję
+	old_object_position = object->getPosition();// memorizing position
 
 	sf::Vector2f new_collider_position;
 	sf::Vector2f old_collider_position;
-	old_collider_position = collider->getPosition(); // memorizing the position
+	old_collider_position = collider->getPosition(); // memorizing position
 
 	float factor = 0.25f; // separation factor
 
