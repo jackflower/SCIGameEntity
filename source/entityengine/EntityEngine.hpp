@@ -140,20 +140,6 @@ public:
 	// static
 
 	////////////////////////////////////////////////////////////
-	/// \brief Get the size of the rendering region of the window
-	///
-	/// \return size of the window
-	///
-	////////////////////////////////////////////////////////////
-	static const sf::Vector2u& getSceneSize();
-
-	////////////////////////////////////////////////////////////
-	/// \brief Set the size of the rendering region of the window
-	///
-	////////////////////////////////////////////////////////////
-	static void setSceneSize(const sf::Vector2u& scene_size);
-
-	////////////////////////////////////////////////////////////
 	/// \brief Method returns a normalized vector
 	///
 	/// \return normalized vector
@@ -193,8 +179,5 @@ private:
 
 	// updating the position of the object after a collision collision - test function
 	void updatePosition(logic::Actor *object, logic::Actor *collider);
-
-	// static
-	static sf::Vector2u m_scene_size; // size of the rendering region of the window
 };
 #endif//HPP_ENTITY_ENGINE_ACODEMIA

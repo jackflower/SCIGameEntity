@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////
 //
-// Acodemia Copyright (C) Jacek Kwiatek
+// Acodemia Copyright (C) Jacek Kwiatek 2022
 // e-mail: jackflower (at) poczta.onet.pl
 // acodemia.pl
 //
@@ -30,22 +30,9 @@
 #include "../logic/Enemy.hpp"
 #include "../logic/Player.hpp"
 #include <iostream>
+#include "GameProperties.hpp"
 
 // static
-
-sf::Vector2u EntityEngine::m_scene_size;
-
-// get the size of the rendering region of the window
-const sf::Vector2u& EntityEngine::getSceneSize()
-{
-	return EntityEngine::m_scene_size;
-}
-
-// set the size of the rendering region of the window
-void EntityEngine::setSceneSize(const sf::Vector2u& scene_size)
-{
-	m_scene_size = scene_size;
-}
 
 // method returns a normalized vector
 sf::Vector2f EntityEngine::normalize(const sf::Vector2f & source)
@@ -99,6 +86,12 @@ const sf::Texture& EntityEngine::getTexture() const
 // Container update with pointers to Entity objects
 void EntityEngine::update(float dt)
 {
+	//testy
+	sf::Vector2u wektor = GameProperties::getSceneSize();
+	int warta = 0;
+
+	// ultimately, a predicate - a function that decides
+	// about the fulfillment of a condition
 	for (unsigned int i = 0; i < m_entity.size(); i++)
 	{
 		// produce the subject depending on and on the signal

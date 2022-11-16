@@ -26,16 +26,15 @@
 
 #include "Game.hpp"
 #include <iostream>
+#include "GameProperties.hpp"
 
 // Default constructor
 Game::Game() :
-	m_size{ 800, 600 },
-	m_render_window{ sf::VideoMode(m_size.x, m_size.y), "Acodemia SCI Game Entity 2022", sf::Style::Close },
+	m_render_window{ sf::VideoMode(GameProperties::getSceneSize().x, GameProperties::getSceneSize().y), GameProperties::getTitle(), sf::Style::Close },
 	m_entity_engine{},
 	p_player{ nullptr }
 {
 	m_render_window.setKeyRepeatEnabled(false);
-	m_entity_engine.setSceneSize(m_size);
 
 	createEntities();
 
@@ -70,12 +69,6 @@ void Game::run()
 void Game::registerEntity(logic::Actor* entity)
 {
 	m_entity_engine.registerEntity(entity);
-}
-
-// Size of the rendering region of the window
-const sf::Vector2u Game::getSize() const
-{
-	return m_size;
 }
 
 void Game::processEvents()

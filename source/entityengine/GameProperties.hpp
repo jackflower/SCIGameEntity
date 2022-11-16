@@ -25,76 +25,57 @@
 ////////////////////////////////////////////////////////////
 
 
-#ifndef HPP_GAME_ACODEMIA
-#define HPP_GAME_ACODEMIA
+#ifndef HPP_GAME_PROPERTIES_ACODEMIA
+#define HPP_GAME_PROPERTIES_ACODEMIA
 
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-#include <SFML/Graphics.hpp>
-#include"../logic/Actor.hpp"
-#include"../logic/Enemy.hpp"
-#include"../logic/Player.hpp"
-#include "../entityengine/EntityEngine.hpp"
-
+#include "SFML/System/Vector2.hpp"
+#include <string>
 
 ////////////////////////////////////////////////////////////
-/// \brief The class represents the game window
+/// \brief Class represents a set of basic properties
 ///
 ////////////////////////////////////////////////////////////
-class Game
+class GameProperties
 {
 public:
+	////////////////////////////////////////////////////////////
+	/// \brief Get the size of the rendering region of the window
+	///
+	/// \return size of the window
+	///
+	////////////////////////////////////////////////////////////
+	static const sf::Vector2u& getSceneSize();
 
 	////////////////////////////////////////////////////////////
-	/// \brief Default constructor
+	/// \brief Set the size of the rendering region of the window
+	///
+	/// \param scene_size - reference to sf::Vector2u
 	///
 	////////////////////////////////////////////////////////////
-	Game();
+	static void setSceneSize(const sf::Vector2u& scene_size);
 
 	////////////////////////////////////////////////////////////
-	/// \brief Virtual destructor
+	/// \brief Get the title of the rendering window
+	///
+	/// \return title of the rendering window
 	///
 	////////////////////////////////////////////////////////////
-	virtual ~Game();
+	static const std::string& getTitle();
 
 	////////////////////////////////////////////////////////////
-	/// \brief Run game
+	/// \brief Set the title of the rendering window
+	///
+	/// \param title - reference to std::string
 	///
 	////////////////////////////////////////////////////////////
-	void run();
-
-	////////////////////////////////////////////////////////////
-	/// \brief The method registers pointers to Entity
-	/// objects in the container
-	///
-	/// \param *entity - a pointer to an Entity object 
-	///
-	////////////////////////////////////////////////////////////
-	void registerEntity(logic::Actor* entity);
+	static void setTitle(const std::string& title);
 
 private:
-
-	////////////////////////////////////////////////////////////
-	// Member data
-	////////////////////////////////////////////////////////////
-
-	sf::RenderWindow m_render_window; // game window
-	EntityEngine m_entity_engine; //container for storing and managing game objects
-	logic::Player* p_player; // pointer to Player
-
-	void processEvents();
-	void update(float dt);
-	void render();
-	void createEntities();
-
-	// real-time loop with constant step
-	void constantStepLoop();
-
-	// real-time loop with variable step
-	void variableStepLoop();
-
-	sf::Texture m_actor_texture; // tests
-	logic::Actor m_actor; // tests
+	// static
+	static sf::Vector2u m_scene_size; // size of the rendering region of the window
+	static std::string m_title; // title of the window
 };
-#endif //HPP_GAME_ACODEMIA
+#endif //HPP_GAME_PROPERTIES_ACODEMIA
