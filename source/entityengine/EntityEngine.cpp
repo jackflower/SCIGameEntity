@@ -30,9 +30,11 @@
 #include "../logic/Enemy.hpp"
 #include "../logic/Player.hpp"
 #include <iostream>
-#include "GameProperties.hpp"
 
 // static
+
+sf::Vector2u EntityEngine::m_scene_size = sf::Vector2u(800, 600);
+std::string EntityEngine::m_title = "Acodemia SCI Game Entity 2022";
 
 // method returns a normalized vector
 sf::Vector2f EntityEngine::normalize(const sf::Vector2f & source)
@@ -44,6 +46,29 @@ sf::Vector2f EntityEngine::normalize(const sf::Vector2f & source)
 		return source;
 }
 
+// get the size of the rendering region of the window
+const sf::Vector2u& EntityEngine::getSceneSize()
+{
+	return EntityEngine::m_scene_size;
+}
+
+// set the size of the rendering region of the window
+void EntityEngine::setSceneSize(const sf::Vector2u& scene_size)
+{
+	m_scene_size = scene_size;
+}
+
+// get the title of the rendering window
+const std::string& EntityEngine::getTitle()
+{
+	return m_title;
+}
+
+// set the title of the rendering window
+void EntityEngine::setTitle(const std::string& title)
+{
+	m_title = title;
+}
 
 // Default constructor
 EntityEngine::EntityEngine() :
@@ -86,10 +111,6 @@ const sf::Texture& EntityEngine::getTexture() const
 // Container update with pointers to Entity objects
 void EntityEngine::update(float dt)
 {
-	//testy
-	sf::Vector2u wektor = GameProperties::getSceneSize();
-	int warta = 0;
-
 	// ultimately, a predicate - a function that decides
 	// about the fulfillment of a condition
 	for (unsigned int i = 0; i < m_entity.size(); i++)

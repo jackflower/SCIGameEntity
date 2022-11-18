@@ -26,7 +26,6 @@
 
 #include "Player.hpp"
 #include "../entityengine/Game.hpp"
-#include "../entityengine/GameProperties.hpp"
 
 namespace logic
 {
@@ -163,7 +162,7 @@ namespace logic
 			m_trigger.setEnabled(false);
 		}
 	
-		checkPlayerPosition(static_cast<float>(GameProperties::getSceneSize().x), static_cast<float>(GameProperties::getSceneSize().y));
+		checkPlayerPosition(static_cast<float>(EntityEngine::getSceneSize().x), static_cast<float>(EntityEngine::getSceneSize().y));
 
 		// update destruction
 		updateDestruction();

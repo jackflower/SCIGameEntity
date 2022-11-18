@@ -26,11 +26,10 @@
 
 #include "Game.hpp"
 #include <iostream>
-#include "GameProperties.hpp"
 
 // Default constructor
 Game::Game() :
-	m_render_window{ sf::VideoMode(GameProperties::getSceneSize().x, GameProperties::getSceneSize().y), GameProperties::getTitle(), sf::Style::Close },
+	m_render_window{ sf::VideoMode(EntityEngine::getSceneSize().x, EntityEngine::getSceneSize().y), EntityEngine::getTitle(), sf::Style::Close },
 	m_entity_engine{},
 	p_player{ nullptr }
 {

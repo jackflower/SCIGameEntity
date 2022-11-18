@@ -25,7 +25,7 @@
 ////////////////////////////////////////////////////////////
 
 #include "Actor.hpp"
-#include "../entityengine/GameProperties.hpp"
+#include "../entityengine/EntityEngine.hpp"
 
 namespace logic
 {
@@ -150,9 +150,9 @@ namespace logic
 	const bool Actor::inCamera() const
 	{
 		return (getPosition().x >= 0 &&
-				getPosition().x <= GameProperties::getSceneSize().x &&
+				getPosition().x <= EntityEngine::getSceneSize().x &&
 				getPosition().y >= 0 &&
-				getPosition().y <= GameProperties::getSceneSize().y);
+				getPosition().y <= EntityEngine::getSceneSize().y);
 	}
 
 	// Method returns collision damage

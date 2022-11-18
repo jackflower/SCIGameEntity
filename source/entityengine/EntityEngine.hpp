@@ -149,6 +149,38 @@ public:
 	////////////////////////////////////////////////////////////
 	static sf::Vector2f normalize(const sf::Vector2f & source);
 
+	////////////////////////////////////////////////////////////
+	/// \brief Get the size of the rendering region of the window
+	///
+	/// \return size of the window
+	///
+	////////////////////////////////////////////////////////////
+	static const sf::Vector2u& getSceneSize();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set the size of the rendering region of the window
+	///
+	/// \param scene_size - reference to sf::Vector2u
+	///
+	////////////////////////////////////////////////////////////
+	static void setSceneSize(const sf::Vector2u& scene_size);
+
+	////////////////////////////////////////////////////////////
+	/// \brief Get the title of the rendering window
+	///
+	/// \return title of the rendering window
+	///
+	////////////////////////////////////////////////////////////
+	static const std::string& getTitle();
+
+	////////////////////////////////////////////////////////////
+	/// \brief Set the title of the rendering window
+	///
+	/// \param title - reference to std::string
+	///
+	////////////////////////////////////////////////////////////
+	static void setTitle(const std::string& title);
+
 private:
 
 	////////////////////////////////////////////////////////////
@@ -158,6 +190,10 @@ private:
 	// the container holds pointers to Actor objects
 	std::vector<logic::Actor* > m_entity;
 	sf::Texture m_texture; // texture atlas
+
+	// static
+	static sf::Vector2u m_scene_size; // size of the rendering region of the window
+	static std::string m_title; // title of the window
 
 	// the template of the method that creates the object
 	template<class T> T* create();
