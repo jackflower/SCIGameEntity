@@ -26,9 +26,12 @@
 
 
 #include "entityengine/Game.hpp"
-//
+
 int main()
 {
+	short int setka = 100;
+	int x =  sizeof(setka);
+
 	Game game;
 	game.run();
 	return 0;
